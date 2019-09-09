@@ -1,0 +1,103 @@
+type Query {
+    userFeed(filter: String, skip: Int, first: Int): UserFeed!
+
+    playerFeed(
+        filter: String, skip: Int, first: Int,
+        orderBy: PlayerOrderByInput
+    ): PlayerFeed!
+
+    # projectionFeed(
+    #     filter: String, skip: Int, first: Int,
+    #     orderBy: ProjectionOrderByInput
+    # ): ProjectionFeed!
+}
+
+enum PlayerOrderByInput {
+    position_ASC
+    position_DESC
+    positions_rank_ASC
+    positions_rank_DESC
+    name_ASC
+    name_DESC
+}
+
+enum ProjectionOrderByInput {
+    createdAt_ASC
+    createdAt_DESC
+    player_ASC
+    player_DESC
+}
+
+type UserFeed {
+    users: [User!]!
+    count: Int!
+}
+
+type PlayerFeed {
+    players: [Player!]!
+    count: Int!
+}
+
+type Mutation {
+    signup(email: String!, password: String!, name: String!): AuthPayload
+    login(email: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+    token: String
+    user: User
+}
+
+type User {
+    id: ID!
+    email: String!
+    name: String!
+    score_setting: ScoreSetting
+}
+
+type ScoreSetting {
+  id: ID!
+  user: User!
+
+  num_qb: Int!
+  num_rb: Int!
+  num_wr: Int!
+  num_te: Int!
+  num_teams: Int!
+
+  pass_yds_pts: Float!
+  pass_tds_pts: Float!
+  pass_int_pts: Float!
+  rush_yds_pts: Float!
+  rush_tds_pts: Float!
+  rec_rcp_pts: Float!
+  rec_yds_pts: Float!
+  rec_tds_pts: Float!
+}
+
+type Projection {
+  id: ID!
+  source: String!
+  player: Player!
+  pass_completions: Float
+  pass_attempts: Float
+  pass_yards: Float
+  pass_tds: Float
+  pass_interceptions: Float
+  rush_attempts: Float
+  rush_yards: Float
+  rush_tds: Float
+  rec_targets: Float
+  rec_receptions: Float
+  rec_yards: Float
+  rec_tds: Float
+}
+
+type Player {
+  id: ID!
+  name: String!
+  projection_id: String
+  position: String
+  positions_rank: Int
+  projections: [Projection!]!
+}

@@ -1,0 +1,55 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  score_setting: ScoreSetting
+}
+
+type Player {
+  id: ID! @id
+  name: String!
+  projection_id: String
+  position: String
+  positions_rank: Int
+  projections: [Projection!]!
+}
+
+type Projection {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  source: String!
+  player: Player!
+  pass_completions: Float
+  pass_attempts: Float
+  pass_yards: Float
+  pass_tds: Float
+  pass_interceptions: Float
+  rush_attempts: Float
+  rush_yards: Float
+  rush_tds: Float
+  rec_targets: Float
+  rec_receptions: Float
+  rec_yards: Float
+  rec_tds: Float
+}
+
+type ScoreSetting {
+  id: ID! @id
+  user: User! @relation(link: INLINE)
+
+  num_qb: Int!
+  num_rb: Int!
+  num_wr: Int!
+  num_te: Int!
+  num_teams: Int!
+
+  pass_yds_pts: Float!
+  pass_tds_pts: Float!
+  pass_int_pts: Float!
+  rush_yds_pts: Float!
+  rush_tds_pts: Float!
+  rec_rcp_pts: Float!
+  rec_yds_pts: Float!
+  rec_tds_pts: Float!
+}
