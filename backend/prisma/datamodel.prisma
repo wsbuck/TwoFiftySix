@@ -9,10 +9,10 @@ type User {
 type Player {
   id: ID! @id
   name: String!
-  projection_id: String
+  projection_id: String @unique
   position: String
   positions_rank: Int
-  projections: [Projection!]!
+  projections: [Projection]
 }
 
 type Projection {
