@@ -6,6 +6,8 @@ type Query {
         orderBy: PlayerOrderByInput
     ): PlayerFeed!
 
+    playerDetail(id: String): Player!
+
     # projectionFeed(
     #     filter: String, skip: Int, first: Int,
     #     orderBy: ProjectionOrderByInput
@@ -36,6 +38,10 @@ type UserFeed {
 type PlayerFeed {
     players: [Player!]!
     count: Int!
+}
+
+type PlayerDetail {
+    player: Player!
 }
 
 type Mutation {

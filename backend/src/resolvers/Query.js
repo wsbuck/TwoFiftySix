@@ -70,7 +70,18 @@ async function playerFeed(parent, args, context) {
   };
 }
 
+
+async function playerDetail(parent, args, context, info) {
+  const id = args.id;
+  console.log(id);
+  const player = await context.prisma.player({ id });
+  console.log(player);
+
+  return player
+}
+
 module.exports = {
   userFeed,
   playerFeed,
+  playerDetail,
 }
