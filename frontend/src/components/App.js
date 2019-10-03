@@ -1,10 +1,20 @@
 import React from 'react';
-import '../assets/App.css';
+
+import { Switch, Route } from 'react-router-dom';
+
+import NavBar from './NavBar';
+
+import Home from '../pages/Home';
+
+import '../assets/App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <h2>Hello World</h2>
+    <div className="App bp3-dark">
+      <NavBar />
+      <Switch>
+        <Route exact path='/' component={Home} />
+      </Switch>
     </div>
   );
 }
