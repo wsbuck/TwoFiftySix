@@ -10,7 +10,7 @@ import '../assets/App.scss';
 
 function App() {
   return (
-    <div className="App bp3-dark">
+    <div className="App">
       <NavBar />
       <Switch>
         <Route exact path='/' component={Home} />
