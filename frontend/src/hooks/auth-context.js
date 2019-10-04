@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { AUTH_TOKEN_NAME } from '../constants';
+
 const AuthStateContext = React.createContext();
 const AuthDispatchContext = React.createContext();
 
@@ -22,7 +24,7 @@ function authReducer(state, action) {
 }
 
 function AuthProvider({ children }) {
-  const status = localStorage.getItem('authtoken') ? true : false;
+  const status = localStorage.getItem(AUTH_TOKEN_NAME) ? true : false;
   const [state, dispatch] = React.useReducer(authReducer, {
     isLoggedIn: status
   });

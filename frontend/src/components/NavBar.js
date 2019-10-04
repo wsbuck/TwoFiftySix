@@ -2,22 +2,29 @@ import React, { useState, useEffect } from 'react';
 
 import { withRouter } from 'react-router';
 
-import { useAuth } from '../hooks/auth-context';
-
 import {
   Alignment,
   Button,
-  Classes,
   Navbar,
   NavbarDivider,
   NavbarGroup,
   NavbarHeading,
 } from '@blueprintjs/core';
 
+import { useAuth } from '../hooks/auth-context';
+
+import { logoutUser } from '../utils';
+
 function NavBar(props) {
+  const [auth, setAuth] = useAuth();
   const [darkMode, setDarkMode] = useState(
     matchMedia('(prefers-color-scheme: dark)').matches
   );
+
+  async function handleLogout() {
+    await logoutUser();
+    setAuth({ type: 'logout'})
+  }
 
   useEffect(() => {
     if (darkMode) {
@@ -32,13 +39,39 @@ function NavBar(props) {
       <NavbarGroup align={Alignment.LEFT}>
         <NavbarHeading>TwoFiftySix</NavbarHeading>
         <NavbarDivider />
-        <Button className={Classes.MINIMAL} icon="home" text="home" />
         <Button
-          className={Classes.MINIMAL}
+          minimal
+          icon="home"
+          text="home"
+          onClick={() => props.history.push('/')}
+        />
+        <Button
+          minimal
           icon={darkMode ? 'flash' : 'moon'}
           text={(darkMode ? 'light' : 'dark') + ' mode'}
           onClick={() => setDarkMode(!darkMode)}
         />
+      </NavbarGroup>
+      <NavbarGroup align={Alignment.RIGHT}>
+        {
+          !auth.isLoggedIn
+          ? (
+            <Button
+              minimal
+              icon='log-in'
+              text='sign in'
+              onClick={() => props.history.push('/login')}
+            />
+          )
+          : (
+            <Button
+              minimal
+              icon='log-out'
+              text='sign out'
+              onClick={() => handleLogout()}
+            />
+          )
+        }
       </NavbarGroup>
     </Navbar>
   );
