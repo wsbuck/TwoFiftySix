@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  FormGroup, InputGroup, Tooltip, Button, Intent
+  FormGroup, InputGroup, Tooltip, Button, Intent, Spinner
 } from '@blueprintjs/core';
 
 import gql from 'graphql-tag';
@@ -33,6 +33,7 @@ function LoginForm(props) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const lockButton = (
@@ -50,6 +51,7 @@ function LoginForm(props) {
 
   async function handleLogin(event) {
     event.preventDefault();
+    setLoading(true);
     await loginUser({
       variables: {
         email: email,
@@ -57,10 +59,14 @@ function LoginForm(props) {
       }
     })
       .then((resp) => {
+        setLoading(false);
         saveToken(resp.data.login.token);
         setAuth({ type: 'login' });
       })
-      .catch((e) => alertError());
+      .catch((e) => {
+        setLoading(false);
+        alertError()
+      });
   }
 
   function saveToken(token) {
@@ -118,13 +124,13 @@ function LoginForm(props) {
         </FormGroup>
         <Button
           type="submit"
-        // onClick={e => handleLogin(e)}
+          loading={loading}
         >
           Submit
       </Button>
       </form>
     </>
-  )
+    )
 }
 
 export default withRouter(LoginForm);

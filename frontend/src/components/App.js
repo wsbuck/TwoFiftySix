@@ -3,6 +3,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import NavBar from './NavBar';
+// import SideBar from './SideBar';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
