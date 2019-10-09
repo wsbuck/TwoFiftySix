@@ -35,7 +35,7 @@ function SignupForm(props) {
   const [password2, setPassword2] = useState('');
   const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
 
   const lockButton = (
     <Tooltip

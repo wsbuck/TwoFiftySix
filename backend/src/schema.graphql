@@ -107,3 +107,24 @@ type Player {
   positions_rank: Int
   projections: [Projection!]!
 }
+
+type GameStat {
+  id: ID!
+  player: Player!
+  season: String!
+  week: String!
+  games_played: Int!
+  pass_attempts: Int!
+  pass_completions: Int!
+  pass_yards: Int!
+  pass_tds: Int!
+  pass_interceptions: Int!
+  sacks: Int!
+  rush_attempts: Int!
+  rush_yards: Int!
+  rush_tds: Int!
+  rec_targets: Int!
+  rec_receptions: Int!
+  rec_yards: Int!
+  rec_tds: Int!
+}

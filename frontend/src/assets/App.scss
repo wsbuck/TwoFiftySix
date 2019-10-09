@@ -63,6 +63,13 @@ body {
   margin: 10px;
 }
 
+.player-card {
+  max-width: 500px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
 @media screen and (max-width: 600px) {
   .navbar-group-desktop {
     display: none;

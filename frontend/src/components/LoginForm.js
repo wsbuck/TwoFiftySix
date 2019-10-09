@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  FormGroup, InputGroup, Tooltip, Button, Intent, Spinner
+  FormGroup, InputGroup, Tooltip, Button, Intent
 } from '@blueprintjs/core';
 
 import gql from 'graphql-tag';
