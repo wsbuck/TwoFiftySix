@@ -4,6 +4,7 @@ import { Button, Card, Elevation, H5 } from '@blueprintjs/core';
 
 
 export default function PlayerCard(props) {
+  const {player} = props;
 
   return (
     <Card
@@ -11,8 +12,8 @@ export default function PlayerCard(props) {
       elevation={Elevation.ONE}
       interactive={true}
     >
-      <H5>Tom Brady</H5>
-      <p>Position: QB</p>
+      <H5>{ player.name }</H5>
+      <p>Position: { player.position }</p>
       <Button>Go</Button>
     </Card>
   );
