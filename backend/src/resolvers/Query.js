@@ -41,11 +41,12 @@ async function playerFeed(parent, args, context) {
     throw new Error('No such user found');
   }
 
-  const where = args.filter
+  const where = args.filter || args.position
     ? {
         OR: [
           { name_contains: args.filter },
-          { position_contains: args.filter },
+          { position_in: args.position },
+          // { position_contains: args.filter },
         ],
       }
     : {}
@@ -54,6 +55,7 @@ async function playerFeed(parent, args, context) {
     where,
     skip: args.skip,
     first: args.first,
+    orderBy: args.orderBy
   });
 
   const count = await context.prisma
@@ -73,10 +75,7 @@ async function playerFeed(parent, args, context) {
 
 async function playerDetail(parent, args, context, info) {
   const id = args.id;
-  console.log(id);
   const player = await context.prisma.player({ id });
-  console.log(player);
-
   return player
 }
 

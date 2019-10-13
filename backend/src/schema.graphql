@@ -2,8 +2,11 @@ type Query {
     userFeed(filter: String, skip: Int, first: Int): UserFeed!
 
     playerFeed(
-        filter: String, skip: Int, first: Int,
-        orderBy: PlayerOrderByInput
+        filter: String,
+        skip: Int,
+        first: Int,
+        orderBy: PlayerOrderByInput,
+        position: [String]
     ): PlayerFeed!
 
     playerDetail(id: String): Player!
