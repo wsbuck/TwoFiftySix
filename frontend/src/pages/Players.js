@@ -1,12 +1,20 @@
 import React from 'react';
 
-// import PlayerCardList from '../components/PlayerCardList';
 import PlayersContainer from '../components/PlayersContainer';
+import PlayersFilterForm from '../components/PlayersFilterForm';
 
 
 export default function Players(props) {
 
   return (
-    <PlayersContainer filter='QB' first={25} skip={0} />
+    <div className='players-page-container'>
+      <PlayersFilterForm />
+      <PlayersContainer
+        // className='players-container'
+        filter=''
+        first={25}
+        skip={0}
+      />
+    </div>
   );
 }
