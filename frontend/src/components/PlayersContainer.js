@@ -9,8 +9,19 @@ import { Spinner } from '@blueprintjs/core';
 import PlayerCardList from './PlayerCardList';
 
 const GET_PLAYERS = gql`
-  query playerFeedQuery($skip: Int, $first: Int, $filter: String) {
-    playerFeed(skip: $skip, first: $first, filter: $filter) {
+  query playerFeedQuery(
+    $skip: Int, 
+    $first: Int,
+    $filter: String,
+    $position: [String]
+    ) {
+    playerFeed(
+      skip: $skip,
+      first: $first,
+      filter: $filter,
+      position: $position,
+      orderBy: name_ASC
+      ) {
       players {
         id
         name
@@ -20,10 +31,11 @@ const GET_PLAYERS = gql`
   }
 `;
 
+
 export default function PlayersContainer(props) {
   const [players, setPlayers] = useState([]);
   const [getPlayers, { loading, data }] = useLazyQuery(GET_PLAYERS);
-  const { filter, skip, first } = props;
+  const { filter, skip, first, position } = props;
 
   useEffect(() => {
     getPlayers({
@@ -31,8 +43,9 @@ export default function PlayersContainer(props) {
         filter: filter,
         skip: skip,
         first: first,
+        position: position
     }});
-  }, [getPlayers, filter, skip, first]);
+  }, [getPlayers, filter, skip, first, position]);
 
   useEffect(() => {
     if (data && data.playerFeed.players) {

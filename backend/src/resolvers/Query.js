@@ -43,7 +43,7 @@ async function playerFeed(parent, args, context) {
 
   const where = args.filter || args.position
     ? {
-        OR: [
+        AND: [
           { name_contains: args.filter },
           { position_in: args.position },
           // { position_contains: args.filter },
