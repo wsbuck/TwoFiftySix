@@ -22,8 +22,14 @@ import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
+require('dotenv').config()
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  // uri: 'http://localhost:4000'
+  // uri: process.env.REACT_APP_GRAPHQL_HOST
+  uri: process.env.NODE_ENV === "development"
+  ? "http://localhost:4000"
+  : "https://api.twofiftysix.williambuck.dev",
 });
 
 const authLink = setContext((_, { headers}) => {
@@ -37,7 +43,11 @@ const authLink = setContext((_, { headers}) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000`,
+  // uri: `ws://localhost:4000`,
+  // uri: `${process.env.REACT_APP_GRAPHQL_WS_HOST}`,
+  uri: process.env.NODE_ENV === "development" 
+  ? "ws://localhost:4000"
+  : "wss://api.twofiftysix.williambuck.dev",
   options: {
     reconnect: true,
     connectionParams: {
