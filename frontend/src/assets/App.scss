@@ -65,8 +65,9 @@ body {
 
 .player-card {
   display: flex;
-  width: 100%;
-  max-width: 500px;
+  // width: 100%;
+  width: 500px;
+  max-width: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
   padding-left: 10px;
@@ -74,6 +75,7 @@ body {
   flex-grow: 1;
   justify-content: space-between;
   align-self: center;
+  height: 60px;
 
   h1, h2, h3, h4, h5 {
     margin-bottom: 0px;
@@ -120,7 +122,15 @@ body {
   flex-wrap: nowrap;
 }
 
-.position-select {
+.player-list-pagination {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.position-filter-container {
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 600px) {

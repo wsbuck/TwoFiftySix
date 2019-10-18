@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+import PropTypes from 'prop-types';
+
 import { useLazyQuery } from "@apollo/react-hooks";
 
 import gql from "graphql-tag";
-
-import { Spinner } from '@blueprintjs/core';
 
 import PlayerCardList from './PlayerCardList';
 
@@ -32,7 +32,7 @@ const GET_PLAYERS = gql`
 `;
 
 
-export default function PlayersContainer(props) {
+function PlayersContainer(props) {
   const [players, setPlayers] = useState([]);
   const [getPlayers, { loading, data }] = useLazyQuery(GET_PLAYERS);
   const { filter, skip, first, position } = props;
@@ -58,10 +58,24 @@ export default function PlayersContainer(props) {
   return (
     <div className='players-container'>
       {
-        loading
-        ? <Spinner className='players-spinner' />
-        : <PlayerCardList players={players} />
+        <PlayerCardList
+          players={players}
+          skip={props.skip}
+          first={props.first}
+          setSkip={props.setSkip}
+          setFirst={props.setFirst}
+          loading={loading}
+        />
       }
     </div>
   );
 }
+
+PlayersContainer.propTypes = {
+  filter: PropTypes.string.isRequired,
+  skip: PropTypes.number.isRequired,
+  first: PropTypes.number.isRequired,
+  position: PropTypes.arrayOf.isRequired,
+};
+
+export default PlayersContainer;

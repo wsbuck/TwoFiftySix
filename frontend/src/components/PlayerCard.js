@@ -2,12 +2,14 @@ import React from 'react';
 
 import { Card, Elevation, H5 } from '@blueprintjs/core';
 
+import clsx from 'clsx';
+
 
 export default function PlayerCard(props) {
-  const { player } = props;
+  const { player, loading } = props;
   return(
     <Card
-      className='player-card'
+      className={clsx('player-card', loading && 'bp3-skeleton')}
       elevation={Elevation.ONE}
       interactive={true}
     >
