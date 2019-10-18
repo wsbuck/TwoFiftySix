@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "scp -r build/* twofiftysix:/var/www/twofiftysix.williambuck.dev/html/"
+    "deploy": "npm run build && scp -r build/* twofiftysix:/var/www/twofiftysix.williambuck.dev/html/"
   },
   "eslintConfig": {
     "extends": "react-app"
