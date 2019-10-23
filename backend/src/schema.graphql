@@ -41,6 +41,7 @@ type UserFeed {
 type PlayerFeed {
     players: [Player!]!
     count: Int!
+    hasNextPage: Boolean!
 }
 
 type PlayerDetail {
