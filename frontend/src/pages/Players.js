@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { withRouter } from 'react-router';
 
 import PlayersContainer from '../components/PlayersContainer';
 import PlayersFilterForm from '../components/PlayersFilterForm';
 
+import { useAuth } from '../hooks/auth-context';
 
-export default function Players(props) {
+
+function Players(props) {
+  const [auth, ] = useAuth();
   const [positions, setPositions] = useState(
     ['QB', 'RB', 'WR', 'TE']
   );
   const [first, setFirst] = useState(25);
   const [skip, setSkip] = useState(0);
   const [filter, setFilter] = useState();
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      props.history.push('/login');
+    }
+  }, [auth.isLoggedIn, props.history]);
 
 
   return (
@@ -32,3 +43,5 @@ export default function Players(props) {
     </div>
   );
 }
+
+export default withRouter(Players);

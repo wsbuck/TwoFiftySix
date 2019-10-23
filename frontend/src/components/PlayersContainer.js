@@ -8,6 +8,8 @@ import gql from "graphql-tag";
 
 import PlayerCardList from './PlayerCardList';
 
+import { useAuth } from '../hooks/auth-context';
+
 const GET_PLAYERS = gql`
   query playerFeedQuery(
     $skip: Int, 
@@ -33,8 +35,9 @@ const GET_PLAYERS = gql`
 
 
 function PlayersContainer(props) {
+  const [, setAuth] = useAuth();
   const [players, setPlayers] = useState([]);
-  const [getPlayers, { loading, data }] = useLazyQuery(GET_PLAYERS);
+  const [getPlayers, { loading, data, error }] = useLazyQuery(GET_PLAYERS);
   const { filter, skip, first, position } = props;
 
   useEffect(() => {
@@ -44,16 +47,20 @@ function PlayersContainer(props) {
         skip: skip,
         first: first,
         position: position
-    }});
+    },
+  });
   }, [getPlayers, filter, skip, first, position]);
 
   useEffect(() => {
+    if (error && error.graphQLErrors[0].message === "Not authenticated") {
+      setAuth({ type: 'logout' });
+    }
     if (data && data.playerFeed.players) {
       setPlayers(data.playerFeed.players);
     } else {
       setPlayers([]);
     }
-  }, [data]);
+  }, [data, error, setAuth]);
 
   return (
     <div className='players-container'>
@@ -72,10 +79,10 @@ function PlayersContainer(props) {
 }
 
 PlayersContainer.propTypes = {
-  filter: PropTypes.string.isRequired,
+  filter: PropTypes.string,
   skip: PropTypes.number.isRequired,
   first: PropTypes.number.isRequired,
-  position: PropTypes.arrayOf.isRequired,
+  position: PropTypes.array,
 };
 
 export default PlayersContainer;

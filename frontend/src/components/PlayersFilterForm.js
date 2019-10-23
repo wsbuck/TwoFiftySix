@@ -47,8 +47,8 @@ function PlayersFilterForm(props) {
 
 
 PlayersFilterForm.propTypes = {
-  filter: PropTypes.string.isRequired,
-  positions: PropTypes.string.isRequired,
+  filter: PropTypes.array,
+  positions: PropTypes.array,
   setFilter: PropTypes.func.isRequired,
   setPositions: PropTypes.func.isRequired,
 }
