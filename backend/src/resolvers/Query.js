@@ -55,20 +55,30 @@ async function playerFeed(parent, args, context) {
     where,
     skip: args.skip,
     first: args.first,
-    orderBy: args.orderBy
+    orderBy: args.orderBy,
   });
 
   const count = await context.prisma
     .playersConnection({
       where,
       skip: args.skip,
+      first: args.first,
     })
     .aggregate()
     .count();
 
+  const totalCount = await context.prisma.playersConnection({
+    where,
+  })
+  .aggregate()
+  .count();
+  
+  const hasNextPage = (totalCount - (count + args.skip)) > 0;
+
   return {
     players,
     count,
+    hasNextPage,
   };
 }
 
