@@ -29,6 +29,7 @@ const GET_PLAYERS = gql`
         name
         position
       }
+      hasNextPage
     }
   }
 `;
@@ -37,6 +38,7 @@ const GET_PLAYERS = gql`
 function PlayersContainer(props) {
   const [, setAuth] = useAuth();
   const [players, setPlayers] = useState([]);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [getPlayers, { loading, data, error }] = useLazyQuery(GET_PLAYERS);
   const { filter, skip, first, position } = props;
 
@@ -55,8 +57,11 @@ function PlayersContainer(props) {
     if (error && error.graphQLErrors[0].message === "Not authenticated") {
       setAuth({ type: 'logout' });
     }
-    if (data && data.playerFeed.players) {
-      setPlayers(data.playerFeed.players);
+    if (data) {
+      if (data.playerFeed) {
+        setPlayers(data.playerFeed.players);
+        setHasNextPage(data.playerFeed.hasNextPage);
+      }
     } else {
       setPlayers([]);
     }
@@ -72,6 +77,7 @@ function PlayersContainer(props) {
           setSkip={props.setSkip}
           setFirst={props.setFirst}
           loading={loading}
+          hasNextPage={hasNextPage}
         />
       }
     </div>

@@ -21,6 +21,7 @@ export default function PlayerCardList(props) {
         setFirst={props.setFirst}
         skip={props.skip}
         setSkip={props.setSkip}
+        hasNextPage={props.hasNextPage}
       />
       {players.map(player => (
         <PlayerCard
@@ -34,6 +35,7 @@ export default function PlayerCardList(props) {
         setFirst={props.setFirst}
         skip={props.skip}
         setSkip={props.setSkip}
+        hasNextPage={props.hasNextPage}
       />
     </div>
   );

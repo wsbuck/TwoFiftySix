@@ -31,6 +31,7 @@ function Players(props) {
         setPositions={setPositions}
         filter={filter}
         setFilter={setFilter}
+        setSkip={setSkip}
       />
       <PlayersContainer
         filter={filter}

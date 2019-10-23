@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -10,7 +10,11 @@ import PositionFilter from './PositionFilter';
 
 
 function PlayersFilterForm(props) {
-  const { filter, setFilter, positions, setPositions } = props;
+  const { filter, setFilter, positions, setPositions, setSkip } = props;
+
+  useEffect(() => {
+    setSkip(0);
+  }, [filter, positions, setSkip])
 
   const clearButton = (
     <Tooltip content={`Clear Content`}>
