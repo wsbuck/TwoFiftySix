@@ -59,12 +59,8 @@ async function playerFeed(parent, args, context) {
   const count = await context.prisma
     .playersConnection({
       where,
-<<<<<<< HEAD
       skip: args.skip,
       first: args.first,
-=======
-      skip: args.skip
->>>>>>> game_stats
     })
     .aggregate()
     .count();
@@ -79,12 +75,8 @@ async function playerFeed(parent, args, context) {
 
   return {
     players,
-<<<<<<< HEAD
     count,
     hasNextPage,
-=======
-    count
->>>>>>> game_stats
   };
 }
 
