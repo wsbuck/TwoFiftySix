@@ -13,6 +13,7 @@ type Player {
   position: String
   positions_rank: Int
   projections: [Projection]
+  game_stats: [GameStat]
 }
 
 type Projection {
