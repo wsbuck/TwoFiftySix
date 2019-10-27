@@ -1,55 +1,53 @@
-const { getUserId } = require('../utils');
+const { getUserId } = require("../utils");
 
 async function userFeed(parent, args, context) {
   const userId = getUserId(context);
   if (!userId) {
-    throw new Error('No such user found');
+    throw new Error("No such user found");
   }
 
   const where = args.filter
     ? {
-        OR: [
-          { name_contains: args.filter },
-        ],
+        OR: [{ name_contains: args.filter }]
       }
-    : {}
+    : {};
 
   const users = await context.prisma.users({
     where,
     skip: args.skip,
-    first: args.first,
+    first: args.first
   });
 
   const count = await context.prisma
     .usersConnection({
       where,
-      skip: args.skip,
+      skip: args.skip
     })
     .aggregate()
     .count();
 
   return {
     users,
-    count,
+    count
   };
 }
-
 
 async function playerFeed(parent, args, context) {
   const userId = getUserId(context);
   if (!userId) {
-    throw new Error('No such user found');
+    throw new Error("No such user found");
   }
 
-  const where = args.filter || args.position
-    ? {
-        AND: [
-          { name_contains: args.filter },
-          { position_in: args.position },
-          // { position_contains: args.filter },
-        ],
-      }
-    : {}
+  const where =
+    args.filter || args.position
+      ? {
+          AND: [
+            { name_contains: args.filter },
+            { position_in: args.position }
+            // { position_contains: args.filter },
+          ]
+        }
+      : {};
 
   const players = await context.prisma.players({
     where,
@@ -61,8 +59,12 @@ async function playerFeed(parent, args, context) {
   const count = await context.prisma
     .playersConnection({
       where,
+<<<<<<< HEAD
       skip: args.skip,
       first: args.first,
+=======
+      skip: args.skip
+>>>>>>> game_stats
     })
     .aggregate()
     .count();
@@ -77,20 +79,75 @@ async function playerFeed(parent, args, context) {
 
   return {
     players,
+<<<<<<< HEAD
     count,
     hasNextPage,
+=======
+    count
+>>>>>>> game_stats
   };
 }
 
-
 async function playerDetail(parent, args, context, info) {
+  const userId = getUserId(context);
+  if (!userId) {
+    throw new Error("No such user found");
+  }
+
   const id = args.id;
   const player = await context.prisma.player({ id });
-  return player
+  
+  const where = args.season || args.week
+  ? {
+    AND: [{ season_in: args.season }, { week_in: args.week }]
+    }
+  : {};
+
+  const stats = await context.prisma
+    .player({
+      id: id
+    })
+    .game_stats({
+      where
+    });
+
+  return {
+    player,
+    stats,
+  };
 }
+
+// async function playerStats(parent, args, context) {
+//   const userId = getUserId(context);
+//   if (!userId) {
+//     throw new Error("No such user found");
+//   }
+
+//   const playerId = args.id;
+
+//   const where = {
+//     AND: [{ season_in: args.season }, { week_in: args.week }]
+//   };
+
+//   const stats = await context.prisma
+//     .player({
+//       id: playerId
+//     })
+//     .game_stats({
+//       where
+//     });
+
+//   const count = stats.length;
+
+//   return {
+//     stats,
+//     count
+//   };
+// }
 
 module.exports = {
   userFeed,
   playerFeed,
   playerDetail,
-}
+  // playerStats
+};

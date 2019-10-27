@@ -9,7 +9,17 @@ type Query {
         position: [String]
     ): PlayerFeed!
 
-    playerDetail(id: String): Player!
+    playerDetail(
+        id: String,
+        season: [String],
+        week: [String],
+    ): PlayerStats!
+
+    # playerStats(
+    #     id: String,
+    #     season: [String],
+    #     week: [String]
+    # ): GameStatFeed!
 
     # projectionFeed(
     #     filter: String, skip: Int, first: Int,
@@ -43,6 +53,16 @@ type PlayerFeed {
     count: Int!
     hasNextPage: Boolean!
 }
+
+type PlayerStats {
+    player: Player!
+    stats: [GameStat!]!
+}
+
+# type GameStatFeed {
+#     stats: [GameStat!]!
+#     count: Int!
+# }
 
 type PlayerDetail {
     player: Player!
@@ -110,6 +130,7 @@ type Player {
   position: String
   positions_rank: Int
   projections: [Projection!]!
+  game_stats: [GameStat!]!
 }
 
 type GameStat {
