@@ -35,6 +35,7 @@ function SignupForm(props) {
   const [password2, setPassword2] = useState('');
   const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(false);
 
   const lockButton = (
@@ -52,6 +53,7 @@ function SignupForm(props) {
 
   async function handleSignup(event) {
     event.preventDefault();
+    setLoading(true);
     await signupUser({
       variables: {
         email: email,
@@ -60,12 +62,12 @@ function SignupForm(props) {
       }
     })
       .then((resp) => {
-        console.log(resp);
+        setLoading(false);
         saveToken(resp.data.signup.token);
         setAuth({ type: 'login' });
       })
       .catch((e) => {
-        console.log(e);
+        setLoading(false);
         alertError()
       });
   }
@@ -153,6 +155,7 @@ function SignupForm(props) {
         </FormGroup>
         <Button
           type="submit"
+          loading={loading}
         >
           Submit
       </Button>
