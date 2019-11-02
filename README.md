@@ -9,5 +9,5 @@ Fantasy Football Analytics Dashboard
 
 ### Built With
 * React
+* graphql-yoga
 * Prisma
-* GraphQL Server
