@@ -133,6 +133,20 @@ body {
   margin-top: 20px;
 }
 
+.player-detail-header {
+  font-size: 36px;
+
+  h1, h2, h3, h4, h5 {
+    margin-top: 10px;
+  }
+
+}
+
+.barchart-container {
+  max-width: 450px;
+  height: auto;
+}
+
 @media screen and (max-width: 600px) {
   .navbar-group-desktop {
     display: none;
