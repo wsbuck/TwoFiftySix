@@ -14,6 +14,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import { AuthProvider } from './hooks/auth-context';
+import { DarkModeProvider } from './hooks/dark-mode-context';
 
 import { AUTH_TOKEN_NAME } from './constants';
 
@@ -74,7 +75,9 @@ ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <AuthProvider>
-        <App />
+        <DarkModeProvider>
+          <App />
+        </DarkModeProvider>
       </AuthProvider>
     </ApolloProvider>
   </BrowserRouter>, document.getElementById('root'));

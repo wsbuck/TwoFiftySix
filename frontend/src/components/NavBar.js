@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { withRouter } from 'react-router';
 
@@ -17,13 +17,14 @@ import {
 
 import { useAuth } from '../hooks/auth-context';
 
+import { useDarkMode } from '../hooks/dark-mode-context';
+
 import { logoutUser } from '../utils';
 
 function NavBar(props) {
   const [auth, setAuth] = useAuth();
-  const [darkMode, setDarkMode] = useState(
-    matchMedia('(prefers-color-scheme: dark)').matches
-  );
+  const [darkMode, setDarkMode] = useDarkMode();
+
   const mobileMenu = (
     <Menu large>
       <MenuItem
@@ -67,14 +68,6 @@ function NavBar(props) {
     await logoutUser();
     setAuth({ type: 'logout' })
   }
-
-  useEffect(() => {
-    if (darkMode) {
-      document.querySelector('body').classList.add('bp3-dark');
-    } else {
-      document.querySelector('body').classList.remove('bp3-dark');
-    }
-  }, [darkMode])
 
   return (
     <Navbar>
