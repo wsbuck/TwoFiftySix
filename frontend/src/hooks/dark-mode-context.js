@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React, { useReducer, useContext } from 'react';
 
 const DarkModeStateContext = React.createContext();
 const DarkModeDispatchContext = React.createContext();
@@ -6,10 +6,14 @@ const DarkModeDispatchContext = React.createContext();
 function darkModeReducer(state, action) {
   switch (action) {
     case true: {
-      return true;
+      return {
+        darkMode: true
+      };
     }
     case false: {
-      return false;
+      return {
+        darkMode: false
+      };
     }
     default: {
       throw new Error(`Unhandled action type: ${action}`);
@@ -18,9 +22,7 @@ function darkModeReducer(state, action) {
 }
 
 function DarkModeProvider({ children }) {
-  const darkModeStatus = useState(
-    matchMedia('(prefers-color-scheme: dark)').matches
-  );
+  const darkModeStatus = matchMedia('(prefers-color-scheme: dark)').matches;
   const [state, dispatch] = useReducer(darkModeReducer, {
     darkMode: darkModeStatus
   });
@@ -38,12 +40,12 @@ function useDarkModeState() {
   if (context === undefined) {
     throw new Error('useDarkModeState must be used within Provider');
   }
-  if (context) {
+  if (context.darkMode) {
     document.querySelector('body').classList.add('bp3-dark');
   } else {
     document.querySelector('body').classList.remove('bp3-dark');
   }
-  return context;
+  return context.darkMode;
 }
 
 function useDarkModeDispatch() {
