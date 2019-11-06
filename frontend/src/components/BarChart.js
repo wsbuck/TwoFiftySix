@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-// import { useDarkMode } from '../hooks/useDarkMode';
+import { useDarkMode } from '../hooks/dark-mode-context';
 
 import { 
   VictoryBar,
@@ -12,28 +12,39 @@ import {
 
 export default function BarChart(props) {
   const { data, x, y, xLabel, yLabel } = props;
+  const [darkMode,] = useDarkMode();
+  const [chartColor, setChartColor] = useState(
+    darkMode ? "BFCCD6" : "#394B59"
+  );
+  
+  useEffect(() => {
+    setChartColor(darkMode ? "#BFCCD6" : "#394B59");
+  }, [darkMode]);
 
   return (
     <div className='barchart-container'>
       <VictoryChart
-         animate={{ duration: 500 }}
+         animate={{
+           duration: 300,
+           onLoad: { duration: 500 }
+        }}
          domainPadding={15}
       >
         <VictoryAxis 
           label={xLabel}
           style={{
-            axis: { stroke: "#BFCCD6" },
-            axisLabel: { fill: "#BFCCD6" },
-            tickLabels: { fill: "#BFCCD6"}
+            axis: { stroke: chartColor },
+            axisLabel: { fill: chartColor, padding: 30 },
+            tickLabels: { fill: chartColor },
           }}
         />
         <VictoryAxis
           dependentAxis
           label={yLabel}
           style={{
-            axis: { stroke: "#BFCCD6" },
-            axisLabel: { fill: "#BFCCD6" },
-            tickLabels: { fill: "#BFCCD6"}
+            axis: { stroke: chartColor },
+            axisLabel: { fill: chartColor, padding: 30 },
+            tickLabels: { fill: chartColor },
           }}
         />
         <VictoryBar
