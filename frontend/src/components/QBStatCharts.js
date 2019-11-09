@@ -11,8 +11,9 @@ export default function QBStatCharts(props) {
     <Card
       interactive={false}
       elevation={Elevation.ONE}
-      className="chart-container"
+      className="player-detail-container"
     >
+      <h2 className="chart-container-header">Past Season Data</h2>
       <BarChart
         data={stats}
         x="week"
@@ -33,6 +34,13 @@ export default function QBStatCharts(props) {
         y="pass_completions"
         xLabel="Week"
         yLabel="Pass Completions"
+      />
+      <BarChart
+        data={stats}
+        x="week"
+        y="pass_interceptions"
+        xLabel="Week"
+        yLabel="Pass Interceptions"
       />
     </Card>
   );

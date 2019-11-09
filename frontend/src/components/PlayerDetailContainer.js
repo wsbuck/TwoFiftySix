@@ -8,6 +8,7 @@ import { useLazyQuery } from "@apollo/react-hooks";
 
 import PlayerHeader from './PlayerHeader';
 import QBStatCharts from './QBStatCharts';
+import PlayerDetailInputs from './PlayerDetailInputs';
 
 const GET_PLAYER = gql`
   query playerDetailQuery(
@@ -29,6 +30,7 @@ const GET_PLAYER = gql`
         pass_tds
         pass_completions
         pass_yards
+        pass_interceptions
       }
     }
   }
@@ -37,8 +39,9 @@ const GET_PLAYER = gql`
 export default function PlayerDetailContainer(props) {
   const [player, setPlayer] = useState({name: ""});
   const [stats, setStats] = useState([]);
+  const [season, setSeason] = useState("2018");
   const [getPlayer, { loading, data, error }] = useLazyQuery(GET_PLAYER);
-  const { playerID, season } = props;
+  const { playerID } = props;
 
   function prepareStats(stats) {
     // const newStats = stats.map((stat) => {
@@ -69,6 +72,7 @@ export default function PlayerDetailContainer(props) {
   return (
     <>
       <PlayerHeader playerName={player.name} />
+      <PlayerDetailInputs season={season} setSeason={setSeason} />
       { player.position === 'QB' ? <QBStatCharts stats={stats} /> : "" }
     </>
   );
