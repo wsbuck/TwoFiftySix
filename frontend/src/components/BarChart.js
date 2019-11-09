@@ -5,6 +5,7 @@ import { useDarkMode } from '../hooks/dark-mode-context';
 import { 
   VictoryBar,
   VictoryChart,
+  VictoryTooltip,
   // VictoryTheme,
   VictoryAxis,
   // VictoryLabel
@@ -51,6 +52,12 @@ export default function BarChart(props) {
           data={data}
           x={x}
           y={y}
+          labels={({ datum }) => `${datum[y]}`}
+          labelComponent={
+            <VictoryTooltip
+              style={{ fill: 'black' }}
+            />
+          }
           style={{
             data: {
               fill: "#48AFF0", stroke: "#2B95D6", width: 14,

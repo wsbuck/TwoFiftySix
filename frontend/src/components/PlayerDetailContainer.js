@@ -25,6 +25,7 @@ const GET_PLAYER = gql`
       }
       stats {
         week
+        season
         pass_tds
         pass_completions
         pass_yards
@@ -37,18 +38,23 @@ export default function PlayerDetailContainer(props) {
   const [player, setPlayer] = useState({name: ""});
   const [stats, setStats] = useState([]);
   const [getPlayer, { loading, data, error }] = useLazyQuery(GET_PLAYER);
-  const { playerID } = props;
+  const { playerID, season } = props;
 
   function prepareStats(stats) {
+    // const newStats = stats.map((stat) => {
+    //   stat.label = stat.season;
+    //   return stat;
+    // });
+    // setStats(newStats);
     setStats(stats);
   }
 
   useEffect(() => {
     getPlayer({ variables: {
       id: playerID,
-      season: ["2018"]
+      season: [season]
     }});
-  }, [playerID, getPlayer]);
+  }, [playerID, getPlayer, season]);
 
   useEffect(() => {
     if (data) {
@@ -64,13 +70,6 @@ export default function PlayerDetailContainer(props) {
     <>
       <PlayerHeader playerName={player.name} />
       { player.position === 'QB' ? <QBStatCharts stats={stats} /> : "" }
-      {/* <BarChart 
-        data={stats}
-        x="week"
-        y="pass_tds"
-        xLabel="Week"
-        yLabel="Pass TDs"
-      /> */}
     </>
   );
 }
