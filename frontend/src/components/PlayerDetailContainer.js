@@ -45,7 +45,7 @@ export default function PlayerDetailContainer(props) {
 
   function prepareStats(stats) {
     // const newStats = stats.map((stat) => {
-    //   stat.label = stat.season;
+    //   stat.week = `${stat.season} - ${stat.week}`;
     //   return stat;
     // });
     // setStats(newStats);
