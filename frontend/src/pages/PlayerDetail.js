@@ -18,7 +18,7 @@ function PlayerDetail(props) {
 
   return (
     <div className='player-detail-page'>
-      <PlayerDetailContainer playerID={playerID} season={"2018"} />
+      <PlayerDetailContainer playerID={playerID} />
     </div>
   );
 }

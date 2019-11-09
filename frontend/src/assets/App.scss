@@ -3,6 +3,8 @@
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 @import "~@blueprintjs/core/lib/scss/variables";
 
+$width: 1200px;
+
 
 body {
   background-color: $pt-app-background-color;
@@ -148,14 +150,20 @@ body {
   height: auto;
 }
 
-.chart-container {
+.player-detail-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 1200px;
+  width: $width;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5px;
+
+  .chart-container-header {
+    width: 100%;
+    font-size: 26px;
+  }
 
 }
 
