@@ -13,7 +13,7 @@ export default function QBStatCharts(props) {
       elevation={Elevation.ONE}
       className="player-detail-container"
     >
-      <h2 className="chart-container-header">Past Season Data</h2>
+      <h2 className="chart-container-header">Historical Season Data</h2>
       <BarChart
         data={stats}
         x="week"

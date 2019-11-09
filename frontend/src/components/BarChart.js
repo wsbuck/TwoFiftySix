@@ -6,6 +6,8 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryTooltip,
+  VictoryGroup,
+  VictoryLegend,
   // VictoryTheme,
   VictoryAxis,
   // VictoryLabel
@@ -17,6 +19,7 @@ export default function BarChart(props) {
   const [chartColor, setChartColor] = useState(
     darkMode ? "BFCCD6" : "#394B59"
   );
+  const barWidth = 10;
   
   useEffect(() => {
     setChartColor(darkMode ? "#BFCCD6" : "#394B59");
@@ -48,24 +51,25 @@ export default function BarChart(props) {
             tickLabels: { fill: chartColor },
           }}
         />
-        <VictoryBar
-          data={data}
-          x={x}
-          y={y}
-          labels={({ datum }) => `${datum[y]}`}
-          labelComponent={
-            <VictoryTooltip
-              style={{ fill: 'black' }}
-            />
-          }
-          style={{
-            data: {
-              fill: "#48AFF0", stroke: "#2B95D6", width: 14,
-              strokeWidth: 2, fillOpacity: 0.7,
-            },
-            labels: { fill: "red", stroke: "red" }
-          }}
-        />
+          <VictoryBar
+            data={data}
+            x={x}
+            y={y}
+            barWidth={barWidth}
+            labels={({ datum }) => `${datum[y]}`}
+            labelComponent={
+              <VictoryTooltip
+                style={{ fill: 'black' }}
+              />
+            }
+            style={{
+              data: {
+                fill: "#48AFF0", stroke: "#2B95D6", width: 14,
+                strokeWidth: 2, fillOpacity: 0.7,
+              },
+              labels: { fill: "red", stroke: "red" }
+            }}
+          />
       </VictoryChart>
     </div>
   );

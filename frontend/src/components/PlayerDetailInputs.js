@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Card, Elevation, Radio, RadioGroup } from "@blueprintjs/core";
+import {
+  Card, Elevation, Radio, RadioGroup, Checkbox, Label
+} from "@blueprintjs/core";
 
 export default function PlayerDetailInputs(props) {
   const { season, setSeason } = props;
@@ -12,7 +14,7 @@ export default function PlayerDetailInputs(props) {
       className='player-detail-container'
     >
       <RadioGroup
-        label="Season"
+        label="Historical Season Data"
         onChange={e => setSeason(e.target.value)}
         selectedValue={season}
         inline
