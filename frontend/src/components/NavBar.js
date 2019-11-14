@@ -40,6 +40,12 @@ function NavBar(props) {
         onClick={() => props.history.push('/players')}
       />
       <MenuItem
+        large
+        icon='cog'
+        text='settings'
+        onClick={() => props.history.push('/settings')}
+      />
+      <MenuItem
         icon={darkMode ? 'flash' : 'moon'}
         text={darkMode ? 'light mode' : 'dark mode'}
         onClick={() => setDarkMode(!darkMode)}
@@ -90,12 +96,18 @@ function NavBar(props) {
         />
         <Button
           minimal
+          icon="cog"
+          text="Settings"
+          onClick={() => props.history.push('/settings')}
+        />
+      </NavbarGroup>
+      <NavbarGroup className='navbar-group-desktop' align={Alignment.RIGHT}>
+        <Button
+          minimal
           icon={darkMode ? 'flash' : 'moon'}
           // text={(darkMode ? 'light' : 'dark') + ' mode'}
           onClick={() => setDarkMode(!darkMode)}
         />
-      </NavbarGroup>
-      <NavbarGroup className='navbar-group-desktop' align={Alignment.RIGHT}>
         {
           !auth.isLoggedIn
             ? (

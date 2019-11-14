@@ -109,6 +109,21 @@ async function playerDetail(parent, args, context, info) {
   };
 }
 
+async function userScoreSetting(parent, args, context) {
+  const userId = getUserId(context);
+  if (!userId) {
+    throw new Error("No such user found");
+  }
+
+  const scoreSetting = await context.prisma
+    .user({ id: userId })
+    .score_setting();
+
+  return {
+    scoreSetting,
+  };
+}
+
 // async function playerStats(parent, args, context) {
 //   const userId = getUserId(context);
 //   if (!userId) {
@@ -141,5 +156,6 @@ module.exports = {
   userFeed,
   playerFeed,
   playerDetail,
+  userScoreSetting,
   // playerStats
 };

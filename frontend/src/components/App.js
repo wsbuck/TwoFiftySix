@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import Players from '../pages/Players';
 import PlayerDetail from '../pages/PlayerDetail';
+import GameSettings from '../pages/GameSettings';
 
 import '../assets/App.scss';
 
@@ -23,6 +24,7 @@ function App() {
         <Route exact path='/signup' component={Signup} />
         <Route exact path='/players' component={Players} />
         <Route exact path='/player/:id' component={PlayerDetail} />
+        <Route exact path='/settings' component={GameSettings} />
       </Switch>
     </div>
   );

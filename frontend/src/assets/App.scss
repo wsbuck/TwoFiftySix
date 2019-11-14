@@ -167,6 +167,39 @@ body {
 
 }
 
+.form-group-inline {
+  justify-content: space-between
+}
+
+.game-settings-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: $width;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  .setting-form {
+    // align-self: center;
+    width: 400px;
+    max-width: 100%;
+  }
+
+  .player-quantity-input {
+    input {
+      width: 40px;
+    }
+  }
+  
+  #submit-button {
+    float: left;
+  }
+
+}
+
 @media screen and (max-width: 600px) {
   .navbar-group-desktop {
     display: none;

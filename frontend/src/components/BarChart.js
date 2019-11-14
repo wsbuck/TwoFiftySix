@@ -6,8 +6,8 @@ import {
   VictoryBar,
   VictoryChart,
   VictoryTooltip,
-  VictoryGroup,
-  VictoryLegend,
+  // VictoryGroup,
+  // VictoryLegend,
   // VictoryTheme,
   VictoryAxis,
   // VictoryLabel

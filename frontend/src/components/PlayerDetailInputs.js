@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  Card, Elevation, Radio, RadioGroup, Checkbox, Label
+  Card, Elevation, Radio, RadioGroup
 } from "@blueprintjs/core";
 
 export default function PlayerDetailInputs(props) {

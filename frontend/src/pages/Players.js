@@ -15,7 +15,7 @@ function Players(props) {
   );
   const [first, setFirst] = useState(25);
   const [skip, setSkip] = useState(0);
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     if (!auth.isLoggedIn) {

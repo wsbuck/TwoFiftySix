@@ -35,7 +35,7 @@ function PlayersFilterForm(props) {
         <H5>Players Filter</H5>
         <InputGroup
           large
-          value={filter}
+          // value={filter}
           onChange={(e) => setFilter(e.target.value) }
           placeholder="Name Filter..."
           rightElement={clearButton}
