@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+
 // import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
@@ -26,8 +28,6 @@ import * as serviceWorker from './serviceWorker';
 require('dotenv').config()
 
 const httpLink = createHttpLink({
-  // uri: 'http://localhost:4000'
-  // uri: process.env.REACT_APP_GRAPHQL_HOST
   uri: process.env.NODE_ENV === "development"
   ? "http://localhost:4000"
   : "https://api.twofiftysix.williambuck.dev",
@@ -44,8 +44,6 @@ const authLink = setContext((_, { headers}) => {
 });
 
 const wsLink = new WebSocketLink({
-  // uri: `ws://localhost:4000`,
-  // uri: `${process.env.REACT_APP_GRAPHQL_WS_HOST}`,
   uri: process.env.NODE_ENV === "development" 
   ? "ws://localhost:4000"
   : "wss://api.twofiftysix.williambuck.dev",
