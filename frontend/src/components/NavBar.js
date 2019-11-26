@@ -2,6 +2,8 @@ import React from 'react';
 
 import { withRouter } from 'react-router';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
   Alignment,
   Button,
@@ -17,13 +19,15 @@ import {
 
 import { useAuth } from '../hooks/auth-context';
 
-import { useDarkMode } from '../hooks/dark-mode-context';
+// import { useDarkMode } from '../hooks/dark-mode-context';
 
 import { logoutUser } from '../utils';
 
 function NavBar(props) {
   const [auth, setAuth] = useAuth();
-  const [darkMode, setDarkMode] = useDarkMode();
+  // const [darkMode, setDarkMode] = useDarkMode();
+  const darkMode = useSelector(state => state.darkMode);
+  const dispatch = useDispatch();
 
   const mobileMenu = (
     <Menu large>
@@ -48,7 +52,8 @@ function NavBar(props) {
       <MenuItem
         icon={darkMode ? 'flash' : 'moon'}
         text={darkMode ? 'light mode' : 'dark mode'}
-        onClick={() => setDarkMode(!darkMode)}
+        // onClick={() => setDarkMode(!darkMode)}
+        onClick={() => dispatch({ type: 'TOGGLE_DARKMODE' })}
       />
       {
         !auth.isLoggedIn
@@ -105,8 +110,8 @@ function NavBar(props) {
         <Button
           minimal
           icon={darkMode ? 'flash' : 'moon'}
-          // text={(darkMode ? 'light' : 'dark') + ' mode'}
-          onClick={() => setDarkMode(!darkMode)}
+          // onClick={() => setDarkMode(!darkMode)}
+          onClick={() => dispatch({ type: 'TOGGLE_DARKMODE' })}
         />
         {
           !auth.isLoggedIn

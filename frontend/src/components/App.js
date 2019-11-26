@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import { Switch, Route } from 'react-router-dom';
 
@@ -15,6 +17,16 @@ import GameSettings from '../pages/GameSettings';
 import '../assets/App.scss';
 
 function App() {
+  const darkMode = useSelector(state => state.darkMode);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.querySelector('body').classList.add('bp3-dark');
+    } else {
+      document.querySelector('body').classList.remove('bp3-dark');
+    }
+
+  }, [darkMode]);
   return (
     <div className="App">
       <NavBar />

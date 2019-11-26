@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 
-// import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
@@ -16,7 +15,9 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import { AuthProvider } from './hooks/auth-context';
-import { DarkModeProvider } from './hooks/dark-mode-context';
+// import { DarkModeProvider } from './hooks/dark-mode-context';
+
+import configureStore from './redux/store';
 
 import { AUTH_TOKEN_NAME } from './constants';
 
@@ -69,13 +70,28 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const store = configureStore();
+
+// ReactDOM.render(
+//   <BrowserRouter>
+//     <ApolloProvider client={client}>
+//       <AuthProvider>
+//         <DarkModeProvider>
+//           <Provider store={store}>
+//             <App />
+//           </Provider>
+//         </DarkModeProvider>
+//       </AuthProvider>
+//     </ApolloProvider>
+//   </BrowserRouter>, document.getElementById('root'));
+
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
       <AuthProvider>
-        <DarkModeProvider>
+        <Provider store={store}>
           <App />
-        </DarkModeProvider>
+        </Provider>
       </AuthProvider>
     </ApolloProvider>
   </BrowserRouter>, document.getElementById('root'));

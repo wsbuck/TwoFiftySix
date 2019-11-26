@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { useDarkMode } from '../hooks/dark-mode-context';
+import { useSelector } from 'react-redux';
+
+// import { useDarkMode } from '../hooks/dark-mode-context';
 
 import { 
   VictoryBar,
@@ -15,7 +17,8 @@ import {
 
 export default function BarChart(props) {
   const { data, x, y, xLabel, yLabel } = props;
-  const [darkMode,] = useDarkMode();
+  // const [darkMode,] = useDarkMode();
+  const darkMode = useSelector(state => state.darkMode);
   const [chartColor, setChartColor] = useState(
     darkMode ? "BFCCD6" : "#394B59"
   );
