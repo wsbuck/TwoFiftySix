@@ -19,6 +19,8 @@ import {
 
 import { useAuth } from '../hooks/auth-context';
 
+import { toggleDarkMode } from '../redux/actions';
+
 // import { useDarkMode } from '../hooks/dark-mode-context';
 
 import { logoutUser } from '../utils';
@@ -53,7 +55,7 @@ function NavBar(props) {
         icon={darkMode ? 'flash' : 'moon'}
         text={darkMode ? 'light mode' : 'dark mode'}
         // onClick={() => setDarkMode(!darkMode)}
-        onClick={() => dispatch({ type: 'TOGGLE_DARKMODE' })}
+        onClick={() => dispatch(toggleDarkMode())}
       />
       {
         !auth.isLoggedIn
@@ -111,7 +113,7 @@ function NavBar(props) {
           minimal
           icon={darkMode ? 'flash' : 'moon'}
           // onClick={() => setDarkMode(!darkMode)}
-          onClick={() => dispatch({ type: 'TOGGLE_DARKMODE' })}
+          onClick={() => dispatch(toggleDarkMode())}
         />
         {
           !auth.isLoggedIn

@@ -72,19 +72,6 @@ const client = new ApolloClient({
 
 const store = configureStore();
 
-// ReactDOM.render(
-//   <BrowserRouter>
-//     <ApolloProvider client={client}>
-//       <AuthProvider>
-//         <DarkModeProvider>
-//           <Provider store={store}>
-//             <App />
-//           </Provider>
-//         </DarkModeProvider>
-//       </AuthProvider>
-//     </ApolloProvider>
-//   </BrowserRouter>, document.getElementById('root'));
-
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>

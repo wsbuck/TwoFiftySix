@@ -119,9 +119,7 @@ async function userScoreSetting(parent, args, context) {
     .user({ id: userId })
     .score_setting();
 
-  return {
-    scoreSetting,
-  };
+  return scoreSetting;
 }
 
 // async function playerStats(parent, args, context) {

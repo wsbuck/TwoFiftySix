@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Switch, Route } from 'react-router-dom';
 
+import { fetchScoreSetting } from '../redux/actions';
+
 import NavBar from './NavBar';
-// import SideBar from './SideBar';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -18,6 +19,11 @@ import '../assets/App.scss';
 
 function App() {
   const darkMode = useSelector(state => state.darkMode);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchScoreSetting());
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -27,6 +33,7 @@ function App() {
     }
 
   }, [darkMode]);
+
   return (
     <div className="App">
       <NavBar />

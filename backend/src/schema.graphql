@@ -73,6 +73,14 @@ type PlayerDetail {
 type Mutation {
     signup(email: String!, password: String!, name: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
+    updateScoreSetting(
+        num_qb: Int!,
+        num_rb: Int!,
+        num_wr: Int!,
+        num_te: Int!,
+        num_wrt: Int!,
+        num_qwrt: Int!
+    ): ScoreSetting
 }
 
 type AuthPayload {
@@ -95,6 +103,8 @@ type ScoreSetting {
   num_rb: Int!
   num_wr: Int!
   num_te: Int!
+  num_wrt: Int!
+  num_qwrt: Int!
   num_teams: Int!
 
   pass_yds_pts: Float!

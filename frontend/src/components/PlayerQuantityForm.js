@@ -1,24 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 import {
   FormGroup, Button, Card, NumericInput, H3
 } from '@blueprintjs/core';
 
-// import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 
-export default function PlayerQuantityForm(props) {
-  const [numQB, setNumQB] = useState(1);
-  const [numRB, setNumRB] = useState(2);
-  const [numWR, setNumWR] = useState(2);
-  const [numTE, setNumTE] = useState(1);
-  const [numWRT, setNumWRT] = useState(1);
-  const [numQWRT, setNumQWRT] = useState(1);
+import { fetchScoreSetting } from '../redux/actions';
 
+const SCORESETTING_MUTATION = gql`
+  mutation ScoreSettingMutation(
+    $num_qb: Int!
+    $num_rb: Int!
+    $num_wr: Int!
+    $num_te: Int!
+    $num_wrt: Int!
+    $num_qwrt: Int!
+  ) {
+    updateScoreSetting(
+      num_qb: $num_qb,
+      num_rb: $num_rb,
+      num_wr: $num_wr,
+      num_te: $num_te,
+      num_wrt: $num_wrt,
+      num_qwrt: $num_qwrt
+    ) {
+      id
+    }
+  }
+`;
 
-  function handleSubmit(event) {
-    console.log(event);
+export default function PlayerQuantityForm({ scoreSetting }) {
+  const [numQB, setNumQB] = useState(scoreSetting.num_qb);
+  const [numRB, setNumRB] = useState(scoreSetting.num_rb);
+  const [numWR, setNumWR] = useState(scoreSetting.num_wr);
+  const [numTE, setNumTE] = useState(scoreSetting.num_te);
+  const [numWRT, setNumWRT] = useState(scoreSetting.num_wrt);
+  const [numQWRT, setNumQWRT] = useState(scoreSetting.num_qwrt);
+
+  const [loading, setLoading] = useState(false);
+  const [updateScoreSetting] = useMutation(SCORESETTING_MUTATION);
+
+  const dispatch = useDispatch();
+
+  async function handleSubmit(event) {
+    console.log(numQB);
+    event.preventDefault();
+    setLoading(true);
+    await updateScoreSetting({
+      variables: {
+        num_qb: numQB,
+        num_rb: numRB,
+        num_wr: numWR,
+        num_te: numTE,
+        num_wrt: numWRT,
+        num_qwrt: numQWRT,
+      }
+    })
+    .then((resp) => {
+      setLoading(false);
+      dispatch(fetchScoreSetting());
+    })
+    .catch((error) => {
+      setLoading(false);
+      console.log(error)
+    })
   }
 
   return (
@@ -33,7 +83,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumQB(e.target.value)}
+            onValueChange={val => setNumQB(val)}
             value={numQB}
             max={5}
             min={0}
@@ -48,7 +98,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumRB(e.target.value)}
+            onValueChange={val => setNumRB(val)}
             value={numRB}
             max={5}
             min={0}
@@ -63,7 +113,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumWR(e.target.value)}
+            onValueChange={val => setNumWR(val)}
             value={numWR}
             max={5}
             min={0}
@@ -78,7 +128,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumTE(e.target.value)}
+            onValueChange={val => setNumTE(val)}
             value={numTE}
             max={5}
             min={0}
@@ -93,7 +143,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumWRT(e.target.value)}
+            onValueChange={val => setNumWRT(val)}
             value={numWRT}
             max={5}
             min={0}
@@ -108,7 +158,7 @@ export default function PlayerQuantityForm(props) {
           <NumericInput
             className='player-quantity-input'
             allowNumericCharactersOnly
-            onChange={e => setNumQWRT(e.target.value)}
+            onValueChange={val => setNumQWRT(val)}
             value={numQWRT}
             max={5}
             min={0}
@@ -118,7 +168,7 @@ export default function PlayerQuantityForm(props) {
         <Button
           id="submit-button"
           type="submit"
-          // loading={loading}
+          loading={loading}
         >
           Submit
       </Button>
