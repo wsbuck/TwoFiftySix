@@ -30,6 +30,11 @@ const GET_SCORESETTING = gql`
   }
 `;
 
+const url = (process.env.NODE_ENV === "development"
+  ? "http://localhost:4000"
+  : "https://api.twofiftysix.williambuck.dev"
+);
+
 export function toggleDarkMode() {
   return {
     type: TOGGLE_DARKMODE
@@ -57,9 +62,10 @@ export function requestScoreSetting() {
 }
 
 export function fetchScoreSetting() {
+  
   return (dispatch) => {
     dispatch(requestScoreSetting());
-    return fetch('http://localhost:4000', {
+    return fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -48,7 +48,6 @@ export default function PlayerQuantityForm({ scoreSetting }) {
   const dispatch = useDispatch();
 
   async function handleSubmit(event) {
-    console.log(numQB);
     event.preventDefault();
     setLoading(true);
     await updateScoreSetting({

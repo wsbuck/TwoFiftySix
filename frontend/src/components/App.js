@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchScoreSetting());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (darkMode) {
