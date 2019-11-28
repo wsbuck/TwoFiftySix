@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import {
   FormGroup, Button, Card, NumericInput, H3
 } from '@blueprintjs/core';
-
 import { useMutation } from '@apollo/react-hooks';
-
 import gql from 'graphql-tag';
+import clsx from 'clsx';
 
 import { fetchScoreSetting } from '../redux/actions';
 
@@ -34,18 +31,27 @@ const SCORESETTING_MUTATION = gql`
   }
 `;
 
-export default function PlayerQuantityForm({ scoreSetting }) {
-  const [numQB, setNumQB] = useState(scoreSetting.num_qb);
-  const [numRB, setNumRB] = useState(scoreSetting.num_rb);
-  const [numWR, setNumWR] = useState(scoreSetting.num_wr);
-  const [numTE, setNumTE] = useState(scoreSetting.num_te);
-  const [numWRT, setNumWRT] = useState(scoreSetting.num_wrt);
-  const [numQWRT, setNumQWRT] = useState(scoreSetting.num_qwrt);
+export default function PlayerQuantityForm({ scoreSetting, isFetching }) {
+  const [numQB, setNumQB] = useState(0);
+  const [numRB, setNumRB] = useState(0);
+  const [numWR, setNumWR] = useState(0);
+  const [numTE, setNumTE] = useState(0);
+  const [numWRT, setNumWRT] = useState(0);
+  const [numQWRT, setNumQWRT] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [updateScoreSetting] = useMutation(SCORESETTING_MUTATION);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setNumQB(scoreSetting.num_qb);
+    setNumRB(scoreSetting.num_rb);
+    setNumWR(scoreSetting.num_wr);
+    setNumTE(scoreSetting.num_te);
+    setNumWRT(scoreSetting.num_wrt);
+    setNumQWRT(scoreSetting.num_qwrt);
+  }, [scoreSetting])
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -60,7 +66,7 @@ export default function PlayerQuantityForm({ scoreSetting }) {
         num_qwrt: numQWRT,
       }
     })
-    .then((resp) => {
+    .then(() => {
       setLoading(false);
       dispatch(fetchScoreSetting());
     })
@@ -71,7 +77,7 @@ export default function PlayerQuantityForm({ scoreSetting }) {
   }
 
   return (
-    <Card className='setting-form'>
+    <Card className={clsx('setting-form', isFetching && 'bp3-skeleton')}>
       <H3>Roster Position Settings</H3>
       <form onSubmit={e => handleSubmit(e)}>
         <FormGroup

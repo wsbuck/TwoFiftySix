@@ -21,11 +21,18 @@ function GameSettings(props) {
 
   return (
     <div className="game-settings-container">
-      {!isFetching && (
+      {/* {!isFetching && (
         <PlayerQuantityForm
           scoreSetting={scoreSetting}
         />
       )}
+      {isFetching && (
+        <Spinner />
+      )} */}
+      <PlayerQuantityForm
+        scoreSetting={scoreSetting}
+        isFetching={isFetching}
+      />
     </div>
   );
 }
