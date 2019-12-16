@@ -2,16 +2,17 @@ import React from "react";
 
 import { Card, Elevation } from '@blueprintjs/core';
 
+import clsx from 'clsx';
+
 import BarChart from "./BarChart";
 
-export default function QBStatCharts(props) {
-  const { stats } = props;
+export default function QBStatCharts({ stats }) {
 
   return (
     <Card
       interactive={false}
       elevation={Elevation.ONE}
-      className="player-detail-container"
+      className={clsx('player-detail-container')}
     >
       <h2 className="chart-container-header">Historical Season Data</h2>
       <BarChart

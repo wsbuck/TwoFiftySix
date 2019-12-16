@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from 'react';
-
-import gql from 'graphql-tag';
-
+import React, { useState, useEffect } from "react";
+import gql from "graphql-tag";
 import { useLazyQuery } from "@apollo/react-hooks";
+import { Spinner } from "@blueprintjs/core";
 
 // import PropTypes from 'prop-types';
 
-import PlayerHeader from './PlayerHeader';
-import QBStatCharts from './QBStatCharts';
-import PlayerDetailInputs from './PlayerDetailInputs';
+import PlayerHeader from "./PlayerHeader";
+import QBStatCharts from "./QBStatCharts";
+import PlayerDetailInputs from "./PlayerDetailInputs";
 
 const GET_PLAYER = gql`
-  query playerDetailQuery(
-    $id: String,
-    $season: [String]
-  ) {
-    playerDetail(
-      id: $id,
-      season: $season
-    ) {
+  query playerDetailQuery($id: String, $season: [String]) {
+    playerDetail(id: $id, season: $season) {
       player {
         id
         name
@@ -37,26 +30,24 @@ const GET_PLAYER = gql`
 `;
 
 export default function PlayerDetailContainer(props) {
-  const [player, setPlayer] = useState({name: ""});
+  // const [player, setPlayer] = useState({ name: "" });
+  const [player, setPlayer] = useState();
   const [stats, setStats] = useState([]);
   const [season, setSeason] = useState("2018");
   const [getPlayer, { loading, data, error }] = useLazyQuery(GET_PLAYER);
   const { playerID } = props;
 
   function prepareStats(stats) {
-    // const newStats = stats.map((stat) => {
-    //   stat.week = `${stat.season} - ${stat.week}`;
-    //   return stat;
-    // });
-    // setStats(newStats);
     setStats(stats);
   }
 
   useEffect(() => {
-    getPlayer({ variables: {
-      id: playerID,
-      season: [season]
-    }});
+    getPlayer({
+      variables: {
+        id: playerID,
+        season: [season]
+      }
+    });
   }, [playerID, getPlayer, season]);
 
   useEffect(() => {
@@ -69,11 +60,17 @@ export default function PlayerDetailContainer(props) {
     }
   }, [loading, data, error]);
 
-  return (
+  return player ? (
     <>
       <PlayerHeader playerName={player.name} />
       <PlayerDetailInputs season={season} setSeason={setSeason} />
-      { player.position === 'QB' ? <QBStatCharts stats={stats} /> : "" }
+      {player.position === "QB" && (
+        <QBStatCharts stats={stats} loading={loading} />
+      )}
     </>
+  ) : (
+    <div className="spinner-container">
+      <Spinner size={100} />
+    </div>
   );
 }
